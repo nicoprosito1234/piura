@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Área Técnica Informática</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px 50px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #6a0dad; /* Púrpura */
+            background: linear-gradient(to right, #e74c3c, #f39c12, #2ecc71, #3498db, #9b59b6); /* Colores de la imagen */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .user-info div {
+            background-color: #e0e0e0;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .user-info .logo {
+            width: 60px;
+            height: 60px;
+            background-color: #a0a0a0; /* Placeholder para el logo */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+            border: 3px solid #ccc;
+            overflow: hidden; /* Para que la imagen dentro del logo no se salga */
+        }
+        .user-info .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+
+        .materia-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .materia-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            color: white;
+            flex: 1 1 auto; /* Permite que los botones se expandan */
+            min-width: 200px; /* Ancho mínimo para los botones */
+        }
+
+        .materia-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Colores específicos para los botones */
+        #btn-diseno-web { background-color: #3498db; } /* Azul */
+        #btn-programacion { background-color: #e74c3c; } /* Rojo */
+        #btn-sistemas { background-color: #2ecc71; }    /* Verde */
+        #btn-soporte { background-color: #f39c12; }     /* Naranja */
+        #btn-aplicaciones { background-color: #9b59b6; } /* Púrpura */
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            display: none; /* Oculto por defecto */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #444;
+            margin-bottom: 25px;
+        }
+
+        .trimestre-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .trimestre-selector button {
+            padding: 10px 20px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .trimestre-selector button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Asegura que el padding no aumente el ancho total */
+        }
+
+        .form-group textarea {
+            resize: vertical; /* Permite redimensionar verticalmente */
+            min-height: 100px;
+        }
+
+        .form-actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-actions button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #28a745; /* Verde para guardar */
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-actions button:hover {
+            background-color: #218838;
+        }
+
+        .info-display {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #007bff;
+            background-color: #eaf6ff;
+            border-radius: 8px;
+            white-space: pre-wrap; /* Mantiene saltos de línea */
+            word-wrap: break-word; /* Rompe palabras largas */
+            font-family: monospace; /* Fuente monoespaciada para ver bien los datos */
+            display: none; /* Oculto por defecto */
+        }
+
+        .info-display h3 {
+            color: #0056b3;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para el texto de información sobre los campos */
+        .field-info {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>PROYECTO DE AREA TECNICA INFORMATICA 2025-2026</h1>
+        <div class="user-info">
+            <div class="logo">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAA8FBMVEX////u7u7kTSXxZSrt7e3+/v729vb39/fv7+8DAwPs7Oz6+vry8vLjSB/5///uZjvr5+ZHR0f4zcjiIQDrOgDqWj3xZCGrq6vvWBnueWnpVyfxrqTlQxQ9PT3Hx8fjRxjsdGpjWFUhISFoaGiOjo5US0nvi3/jPACZmZne3t799PHWz83Cubavn5lXV1cbFxe0qKZ9ennm29jrhnHxnJTypJ34s6H6wK350MPnubT0lXz62tb85+HqSADnkIX3p5bpYEfqb1flVEWIenUzLSxjNCT3o4n1gln2urXlzsz0imb4xbnzc0DjSDHsakfqc1ABy62xAAAS80lEQVR4nO2di1vbOBLAbfBD2Irx5dES4uJeu0u2psduk5QCNiHZ26Nps8D//9/cjGz5ETmJbWLT7sdAv8YifvwiaTSaGSmSpsihKKoUiU6iImLyIpMXyTovUo2oxIiLJP4uReMXU/n1FZpcn9/SkIQiRbwlSW4ZP4UWnynHt4SDF5gXmBeYF5gXmB8PxlBCSa6s8ZIUDC9KYKT4xBRMVGYkN+PXN1Iw4i2TouSWsrF6SzXn+vGJWKRrXPRE1pbkFaUKKxcVfIqcx0hfTIo/iaSN6HEboayalVS1Js2GpGoyp6VCGcF3bWqpkhHfMi6icUtKWiov2txSZSUFw09Jmo1KhQYfw8hyqiVV7HZSTreLbxnDJB8WSbXUHBg5B0YpAkNIumZIKAmMSbjE11fxaAVGCQuInDzFM8BgG6Ug7Gx4yRothfap01DilowHcLIWFlGNhDCqFr2LKhRKafS254DRzs7/hfLmI7uZ8Y4dvTuRpD/Clxl5QyTzv2/Yy/MzOB+vf/Y+/Nv7E039jf3tzbn9PDD6ye8HTF6HVw4PDgDmPwc5okj6v6OX5zBWwPXJp+j4zYmu/hK+/NeH54J5Vw7G5DAHH1W8/sffG4IpoM2eAHNAYTz48J4flYFRtsOokUhc/8g6L4JxJirS4iINi8wEBorMbTByGuYXSTdfx0dZGHgKSvJviULjIp0XyfHj66BfNcrF5MI1EtV0oYiyIimGUVELxTDaGhhNTWAA+eRNCkaSYhidXz/nlkw0sSh+lwaPldhmSR3KUVFqxONF0SCR1AyiKfwxyRoYOQ1z7r1PDjIwFG6QGmT5U6Rss6hISWwzXmJUt5o5zJtzJhyG0rPfUD79Ff35NTvUMzAH5+/WwTzPFOAk9TypBkTZaKqZZ7+GBe8lkxUoGZi0/NAw2DHlFIyEvTfbzH4iGLxSCiYyf/6RMH/xt77jne4nhnnNdcWnT7/nwGS1WQWYJ6nmFRgSTX3TfYZdn8OcnUQ1dPabWDM2aov4KWPVLJdQzU8aNM8/ofBx4yS6WEabhdZ9BPNRDd/7iynCvPl4wsWWqg2aTzVnkPQDh5GiSyUwhF0/Nmc+qjZ2m1/PpBgmNmegH3H5Q5UrmTM7MDTTtlkoCUw0h4xhNAnssndwWg5MLL//oRrVDE2xKz3Fat4Go1P108F7shVG+RHmM9tgTEW3/3cm/UNgZJna6j8HJiz6kWAOCsGccxjt1xQMu35E8FcezMEfUp4CqGnaTD+8DoXNdDUzOrL5icbHsOBMj2DUqMDWOMwZP4dq/GUiH/S8mimjzQg/J+WejSfkMV/kN4PJcnyiRqPBKrl/NOBoKSNCCocMJe0ENFWT4mMnb5Ki8yoEEmSlLse5Vqho147z3JCG8ROFNNJF/6xg0wvMC8yPBYMdLQWTowDimVICw99G43fl6RxRAURTxLpgqGRZVnwVPAhlY5Fa7G1ri2g9MCSYHTYusxEt5QPgktS5EpWkYOBI8XpOq2FxZ166Zcv8WdPjTKoosSQ4QjpamjnZnLt7DYs7N1OfdxJG1cUq0KELlrCa1bHTNIwzVmuaAliTYdMww4lV13zmc/Mwn6UXmAIwF83DXNQG86XTOMyX2mAuK8Mcl5P4vM5lRRjFEGwtmp0Mad2qMPvlJKbppn37Btk4v4PXxTLDwkOrcp+pCjO0ts3P03PqXNtMDrONUt4IZqIrVuVBsyqMY62ENKJnTYU0+OOjoZ6XLMZ7z4rVbDwHjFHTFMCw9puG2a8R5rDVDAw/zT2sEWZcVZ1VhBle1whzW3WgKccSt7LObW0winnVNMyVpZSLNoswvGQVRhs1DTOiad90nmrmMKFHk4c6STrUGQVE4+htlA3rNQ3jYYhYl/hjxDFkjRdlwspSThA6J1SthcfNw+Q9RSaUny5KG5qCH0ylPGUgcnp5zWizxDTzJCnlVNtim+VlnG+InHl7oktj2Ckg3QJyE8PwS7t7IUw9YUBvTzBouqftHcn10SqMUyuMJLo0OgNKKOgKEMJ/YgXCi5N1A+vF/HyzCjOcSHXCiF6A7kQhI2KjGCMyoiNjZLAjxY5ewX/JLTfATASYbr0wE0EDdMceAfXPtCP/CfMB2Q8udyBKERjvQWhmNcPcCjXj9Dwi2+gNhZmHIRvEwPCdIbMfFAXqKA5Db4L5+5XQzG6rw2xXzTn+GfcYYOCJoTnBU8vQ4pSokdly2Pjgr4Vqpitq5osQprBqLjVoqktx4tz1CH74xDCIDZ8UcBGCNSITG9oX/Mi2XBVmqZYbNEuZM7QtwnQARjagImxQA7INMIbBfmUAxBoCoELNrCPADC/Z0xU3Z0oYmrJMR+LEuRMQGRsVYb0F+o+Br7HJAQv7lQvBBCKMw+zMMoZmmZgmsVvCXLPzjSrYMbAKsGlBA8NKwtbFGh+rmgIw34Rm1mrZTDPWFaCl94I901lqCj4/dg/W8wl2fdaBsPsTVGdFYC6GqzDufbgasS4YvSfCXJhwMtSKrMB/8Atvhb5CAIf1fqylIjB3NwJMT68X5lCA6V5b2D+wMmSbPTv8GqydEXzNRqHtLOpXYZhxD2uFUcxrYUbjfrWgLY3Yg7NrQfXAkIU9yBhBt7FlpRDM/NVqzXSuzbIwxZ2AIF4OzAOrGVYHYKUptmWB0jctSwtj3/jSUreKORNqBmCUJ9cMSwqTRfcsCBVdGu7MQtsB/skjAwyxK6dXSWKWBOYKP9ZS7tkSjnNdV7/lwOB6BBuHTaaal11XlFfbZV+E+VYgsS3jOC8T0gDxBZhWD9qWgRUDytmw6eXN6jv2Sk6bYxg/aimFQxolE05FGDA6aDjUM5OG+Hs5PtwyLIk7g8PUlT3riy6NYVuT2TgZGpf+LCf1oUrF7HXrhgluhM99+EVjhmY4zpBRPyfwUalmboK6YY5Fl8ZCM9gMAGdiMNw8FYaf4x7XDeONRS/AQseJJkzRcPwn3mlOsLAKzHDs1Q0zFb0Atxpa+8yKgQHfu94RTHdaO0yOS2NKwZrBFYy4iJF4d7uCmTwBZmuK1hqY4dxi1j70fQPsGTrI8eE+DaZwilZO8pyenzzHXC2y6NJwDi3MpCRsOxP472pHCuDmQmYPUiJ5rtwUgHi3wufeGqoy2sboAQAlQNo7guneeuyutc1nCF2Ij9pVZWY1owtgRDS/6whytFVilniYaS1ovTAyWYrGSsfEOQyQ2GCiyTTovxWkv1WORJhluIa1Phjq50ycvdinBDN/g6wszNDAxlXNzaKKXrNW71vtMIFoenVGVEanjIGTNObQYP2WOWZD/+z2mabom3F7/rPALC0YM6OKYe4lDsO8gYVgbkV3xiyoH+Yhxz9joR5n3mUSTtOSGEDoiN4K810IAbgPFWDK7W9Gg0dBnTljGGgwBAC1AhM1HByY41wJHeeFPJpfBXeG8xiwuWGN+5uZOaaXM4dmhrNMqBrWUZinFqMbbGUCVNn2Zia6M7qnnll2mVbJ/c3A0sxzaRhYNQpzhGBFMB861BKb5mBJBZgOtzPr299MMhcCjDOzFOZUBtuMzZ8RgoxkZt+A2Vagz6h/ijBt/sf6Fp3m5c/0FMVmPm5oWjKLb6B/A0ZSDHZmb7lGtJyaaQDGaudkaYxo5C1ngTM8wbYVBeYFOPO0C6hmP7HenhvGCTQZlZY8Qj8NmrbobLapwjRCEce5L5pm3SZgcvxizmXknyFozshs9FTCQJNdLAqwFIaZvZvLBmB8MeXEWbL1Q2xowQEGJwPwSmGDDJZuhVmIY+aevwuYzQu1LX8mjpoL9JBrlkWtrOCxpmdWkhWFcWYCzO73NzODvjBqtk4HZWXpZWAGAszw1ONB2Pr2NzPtHFeSK07HNk/Obu6yMJMcGLv8Vi1lN9ExvWmFJPrVqfHR5wyMOhazM07taNVnjfub7Qbm+CpTMaYYAxze2XyqXt9yYNO7y4tZlIWJB5Hw8occJnE0NwNTZRndKsxhFiYQDICWO+Bb6tYJoy7ExIa9bJxM/PsKy6tVmF5cZRzGaQJGl9oz8WFPM9LfCvN3PLwz8USYWZtb/rXCiNGk1r2dGSsvhQUQqzBf4xGRyWhvFcadtavUTOn9zdoiTOtKYy4M9GIYBr0U/AQrMEffgwzMxbEI42vJLWOYbaq55KCpqzlxPufCUozQDwg2Mw2EeNMKzM11dsy8zYOJx8Ma9zfTfNE/00L/jIIs6DejgRCRWoWZZK2174I7w33w4yyzGvc3o8FctDSvYxjMmFGEcVWAkdbAxFecJw2xxv3N4HMXYfoW8zRjIhDMNDVhKFqFuc3CxJ7mJAlwnDTEGjeeIrJoabp99Gmy7Fl0dFlC+nN5mGlqH576YGQiGmfunGICHYZo0L+kCRnDKzD7XzIsVg7MJHZ41QljiJ87wKAvVgHNSQyEudiimo8XGRh/Jphmw8/Ws8HMAo3HNEegDherKSdZlleP2THTf6gNZos2M6yBoABaoceexTRhqCHLeydrwGVhjuZZmGVSZfyEowsRpob9zQzrizjO9Ja6zKoG3ecKHS37PTB8E4szqZRXx4ez75dJQDsfpjVMYGrd30y9FIJnAGMZLMcUFADaAJplLD/3/7x3nBAoBDk66j2MF74qrchCNAB6l2oz+5uJ/plWb2ExBxkbNFFJK9TUvKB9+nYG1rzb2j862v/7sX/dDrxVklwYB6yZZvY3kwXTq7U3sGS2GMAOV2ygvwz6j2Zp/mDanw2P5uPbZbDO4zQQmpkz9hraRct7K8J8pnJoARgkXAnAwOASmm4H7cGF7+VVSfSMExGm3xiMmITVmmKMVsF0wNDXzPKzWXxGJpQk984T71oMmzUHIxpnramGZhkL+RlKGJ4NYTC+sSWkEYhGc3PNzLwWYNx+gOlzmKhhRF1GwSgH2gX2tshZ8FWwZpxrsymYW3F2BjCYoDkKg0wsjD5ii00wULMNZi7AuLdNwaifhQRZmH5Q1MjQYUYKC5yjPsDEDYzQjsrCgEJRq+1xLqRordnfzIjzpdo9EWbEvhNgxBK1WPIZ9JhRmBSwLaRhizC9Nu6jmbplCLPD/c1CUmBcCDDu7CoAJYx2szFiCQ3oDsAAJ6PbBKMGA8HObPWuaHoPwaLJcxV2BdbFmtlzu73xwvbYik2MMik4zIRZAGDirIMxveDL+PBGUGZQM7ShLY61pQiDtmG3czRYfLMpqjVbYcudFLSM8lWz6fn+4NXwKL0KIO01awgmxy/GH6LTmU8vvgU2xTAzSwViA40A4wX+xfXDzU0KZMXObAwm2LA5oDscth4mCwCyNFtmPCu5MwCyvD10j45WSPZTAU1Qjk3B2P3NOx063eF8PGn7VGeJ9SSVoeH57dvvj1AlIkkapm83BUPIeOtmOs6wdf8wGbQDG4Ai1cza1tfj/VRC5hqY1hgs7mZgZOu0yM5ALXfozPrTxciyQLOr/uLu++PRzVqQDMyp9sQ9zgstBsLJnFEMhrUXp7U3e3t65V/3Hw73c3rJOhjLSMHUsr8ZL1KnJfZsarmOc//3q60gmT4zVct/JWe5/c1YEau2u5JbnbaKkKSzgO/YV7Ywf09N+5sxYVe+cEpup1WIJQlo3i8b3Hx6eV8LTGzNNApj/FmynZVrZe6fRoMwZPcwqf0mAYY0CGPuFia9c2YIYzYJk7d8sRrMCkcIM1OrfpuWCMNL1sKo68zmkjCrVcJhHsVbhjC73N8Md+fAd6h5yxdLwuRzMHG+wy1St6xnfzNeZJbdU7tYjcQwY1O4ZaGtWsptohMZSvrAGQ7L8BSsEkYy7DoDTcmxzXa8vxkPlhAaXE3n3U7h/KYYZMv7hp3ufAoTO9Lkl1Bjh/Lai3mnMyykCopUiTvsdPoL3/Y0XFnY5NeDw5UlluV8OusUqKCtdQJVMpsE4RfqRgqrSZh4A7agDRXkujlZaIWk1XLRD3IVZWQ8xxe3p2Ak07Iur/uZGGZhEvwM+tejJAz13DAw7lqW7F+NZ/fwMRcGgre69/O7hS9bempyuyOY4qqZSbrIMAiMT3Q5OX3sDZ0COsF13Nn89HZJLZ2SjEc4zh+roJorDZrr8tMslfiL07c919lUQS3HcWZvJ20fE+7L3HK3+5tF5kwoccpXkrKG2zNqNGgPTuezNaMqjLaz/nTQ9jRdS26pEeFiVcyZSoYma4Nrv+aI6pbntyfTXqebraCW2+30prdtn1gayTb42HbfeMud7m9WDEZmXxnjef5i+tjrdiMep9udPQyufM8zKVGUld67AeZH+QIqD1rctAUVBFUyg7YVsAvmqaKfAAaEksCfzh7u/MDjV/sxvk2rCoxGKNE1zUzlAvy0MNwwbeh7zqo4AUvDZPOrmuwzG/Y3S6/MiU9MwQi2SA6Mmjx5AhM/Uwomeora9jfbxZdh5qSPbb5Yccd5hZBGWKQIRZnlBGLKGi9K1WTON/Ilt6wQ0tiN1Sx0u0I6RMrpdnxtxjNOAXYI8/zzmReYF5gXmBeYZ4b5P+0xGcbWvN4fAAAAAElFTkSuQmCC" alt="Logo Institucional">
+            </div>
+            <div>NOMBRE:EDGAR NICOLAS MERO MONCAYO</div>
+            <div>CURSO: 3ER "L"</div>
+             <div class="logo">
+                 <img src="data:image/jpeg;base64,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" alt="Logo Materia">
+             </div>
+        </div>
+    </div>
+
+    <div class="materia-buttons">
+        <button class="materia-button" id="btn-diseno-web" data-materia="diseno-web">Diseño Web</button>
+        <button class="materia-button" id="btn-programacion" data-materia="programacion">Programación y Base de Datos</button>
+        <button class="materia-button" id="btn-sistemas" data-materia="sistemas-operativos">Sistemas Operativos y Redes</button>
+        <button class="materia-button" id="btn-soporte" data-materia="soporte-tecnico">Soporte Técnico</button>
+        <button class="materia-button" id="btn-aplicaciones" data-materia="aplicaciones-ofimaticas">Aplicaciones Ofimáticas Locales y en Línea</button>
+    </div>
+
+    <div id="data-entry-form" class="form-container">
+        <h2 id="form-title"></h2>
+
+        <div class="trimestre-selector">
+            <button class="trimestre-button active" data-trimestre="trimestre1">Trimestre 1</button>
+            <button class="trimestre-button" data-trimestre="trimestre2">Trimestre 2</button>
+            <button class="trimestre-button" data-trimestre="trimestre3">Trimestre 3</button>
+        </div>
+
+        <form id="materia-form">
+            <div class="form-group">
+                <label for="titulo-tarea">Título de la Tarea/Actividad:</label>
+                <input type="text" id="titulo-tarea" placeholder="Ej. Diseño de página principal" required>
+                <div class="field-info">Ingresa un título descriptivo para la tarea o actividad.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha-entrega">Fecha de Entrega:</label>
+                <input type="date" id="fecha-entrega" required>
+                <div class="field-info">Selecciona la fecha límite para esta tarea.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion-tarea">Descripción Detallada:</label>
+                <textarea id="descripcion-tarea" rows="5" placeholder="Describe los objetivos, los pasos o los requisitos de la tarea."></textarea>
+                <div class="field-info">Proporciona una descripción completa de la tarea.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones/Notas Adicionales:</label>
+                <textarea id="observaciones" rows="3" placeholder="Añade cualquier nota importante o comentario relevante."></textarea>
+                <div class="field-info">Cualquier detalle adicional que quieras registrar.</div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Guardar Información</button>
+            </div>
+        </form>
+
+        <div id="saved-info-display" class="info-display">
+            <h3>Información Guardada:</h3>
+            <pre id="display-content"></pre>
+        </div>
+
+    </div>
+
+    <script>
+        const materiaButtons = document.querySelectorAll('.materia-button');
+        const dataEntryForm = document.getElementById('data-entry-form');
+        const formTitle = document.getElementById('form-title');
+        const trimestreButtons = document.querySelectorAll('.trimestre-button');
+        const materiaForm = document.getElementById('materia-form');
+        const savedInfoDisplay = document.getElementById('saved-info-display');
+        const displayContent = document.getElementById('display-content');
+
+        let currentMateria = '';
+        let currentTrimestre = 'trimestre1'; // Trimestre 1 activo por defecto
+        let lastClickedMateria = null; // Variable para rastrear el último botón de materia clicado
+
+        // Objeto para almacenar la información de todas las materias y trimestres
+        // Estructura: { "materia1": { "trimestre1": {}, "trimestre2": {} }, "materia2": ... }
+        const dataStorage = {};
+
+        // Función para cargar los datos del trimestre seleccionado
+        function loadDataForTrimestre() {
+            if (currentMateria && dataStorage[currentMateria] && dataStorage[currentMateria][currentTrimestre]) {
+                const data = dataStorage[currentMateria][currentTrimestre];
+                document.getElementById('titulo-tarea').value = data['titulo-tarea'] || '';
+                document.getElementById('fecha-entrega').value = data['fecha-entrega'] || '';
+                document.getElementById('descripcion-tarea').value = data['descripcion-tarea'] || '';
+                document.getElementById('observaciones').value = data['observaciones'] || '';
+
+                // Mostrar la información guardada en el área de display
+                displayContent.textContent = JSON.stringify(data, null, 2);
+                savedInfoDisplay.style.display = 'block';
+
+            } else {
+                // Si no hay datos, limpia el formulario y oculta el display
+                materiaForm.reset();
+                displayContent.textContent = 'No hay información guardada para este trimestre.';
+                savedInfoDisplay.style.display = 'block'; // Mostrar siempre el display, incluso si está vacío
+            }
+        }
+
+        // Manejador de clics en los botones de materia
+        materiaButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const clickedMateria = button.dataset.materia;
+
+                // Si se hace clic en la misma materia y el formulario ya está visible, ocúltalo
+                if (clickedMateria === currentMateria && dataEntryForm.style.display === 'block') {
+                    dataEntryForm.style.display = 'none';
+                    currentMateria = ''; // Resetea la materia actual
+                    return; // Sale de la función
+                }
+
+                currentMateria = clickedMateria;
+                formTitle.textContent = `Ingresar Datos para: ${button.textContent}`;
+                dataEntryForm.style.display = 'block'; // Muestra el formulario
+
+                // Asegúrate de que el trimestre 1 esté activo y carga sus datos al cambiar de materia
+                trimestreButtons.forEach(btn => btn.classList.remove('active'));
+                document.querySelector('.trimestre-button[data-trimestre="trimestre1"]').classList.add('active');
+                currentTrimestre = 'trimestre1'; // Reinicia a trimestre 1
+
+                // Inicializa el almacenamiento si la materia no existe
+                if (!dataStorage[currentMateria]) {
+                    dataStorage[currentMateria] = {
+                        trimestre1: {},
+                        trimestre2: {},
+                        trimestre3: {}
+                    };
+                }
+                loadDataForTrimestre(); // Carga los datos del trimestre 1 de la nueva materia
+            });
+        });
+
+        // Manejador de clics en los botones de trimestre
+        trimestreButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                trimestreButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                currentTrimestre = button.dataset.trimestre;
+                loadDataForTrimestre(); // Carga los datos del nuevo trimestre
+            });
+        });
+
+        // Manejador del envío del formulario
+        materiaForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Evita el envío tradicional del formulario
+
+            const data = {
+                'titulo-tarea': document.getElementById('titulo-tarea').value,
+                'fecha-entrega': document.getElementById('fecha-entrega').value,
+                'descripcion-tarea': document.getElementById('descripcion-tarea').value,
+                'observaciones': document.getElementById('observaciones').value
+            };
+
+            // Guarda los datos en el almacenamiento
+            if (!dataStorage[currentMateria]) {
+                dataStorage[currentMateria] = {};
+            }
+            dataStorage[currentMateria][currentTrimestre] = data;
+
+            alert(`¡Información guardada para ${currentMateria} - ${currentTrimestre}!`);
+
+            // Muestra la información guardada
+            displayContent.textContent = JSON.stringify(data, null, 2);
+            savedInfoDisplay.style.display = 'block';
+
+            console.log("Datos guardados:", dataStorage); // Para ver los datos en la consola del navegador
+        });
+
+        // Opcional: Mostrar información de los datos guardados en la consola al cargar la página
+        console.log("Data Storage al iniciar:", dataStorage);
+    </script>
+
+</body>
+</html>
